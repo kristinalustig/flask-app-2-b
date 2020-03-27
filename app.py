@@ -14,7 +14,7 @@ def index():
 
 # Detail page route that serves detail.html
 # For example /1 will give you the detail page for Bulbasaur
-@app.route('/<int:id>')
+@app.route('/pokemon/<int:id>')
 def detail(id):
     return render_template('detail.html')
 
