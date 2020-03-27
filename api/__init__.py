@@ -1,1 +1,3 @@
-from api.pokemon import *
+from api.pokemon import pokemon
+from api.teams import teams
+

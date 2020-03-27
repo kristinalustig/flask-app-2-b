@@ -6,6 +6,7 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 app.register_blueprint(api.pokemon, url_prefix="/api")
+app.register_blueprint(api.teams, url_prefix="/api")
 
 # Home page route that serves index.html
 @app.route('/')
