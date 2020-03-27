@@ -8,7 +8,7 @@ $(document).ready(function() {
                 var pokemon = data[i];
                 var $pokemon = $(`<a href="/pokemon/${pokemon.id}"></a>`).addClass("pokemon");
                 var html = `
-                    <h2>${pokemon.name}</h2>
+                    <h3>${pokemon.name}</h3>
                     <img class="pokemon-image" src=${pokemon.image_url} />
                 `;
                 $pokemon.append(html);
