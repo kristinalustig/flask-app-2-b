@@ -18,6 +18,12 @@ def index():
 def detail(id):
     return render_template('detail.html')
 
+# Detail page route that serves detail.html
+# For example /1 will give you the detail page for Bulbasaur
+@app.route('/teams/<int:id>')
+def teams(id):
+    return render_template('team.html')
+
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
