@@ -25,6 +25,11 @@ h1 {
     width: 25%;
 }
 
+.team {
+    padding: 15px;
+    color: black;
+}
+
 .pokemon-container {
     float: left;
     width: 75%;
