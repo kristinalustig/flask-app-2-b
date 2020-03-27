@@ -3,9 +3,10 @@ import json
 
 pokemon = Blueprint('pokemon', 'pokemon')
 
-# Take data from pokemon.json and turn it into a Python dictionary to store in DATABASE
-with open('data/pokemon.json') as f:
-  DATABASE = json.load(f)
+# Take data from database.json and turn it into a Python dictionary to store in DATABASE
+with open('data/database.json') as f:
+  raw = json.load(f)
+DATABASE = raw.get("pokemon", [])
 
 # Track the ID that will be used for new pokemon when they are added to DATABASE
 current_id = len(DATABASE) + 1

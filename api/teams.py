@@ -3,16 +3,13 @@ import json
 
 teams = Blueprint('teams', 'teams')
 
-# Track the ID that will be used for new teams when they are added to DATABASE
-current_id = 1
+# Take data from database.json and turn it into a Python dictionary to store in DATABASE
+with open('data/database.json') as f:
+  raw = json.load(f)
+DATABASE = raw.get("teams", [])
 
-DATABASE = [
-    {
-        "name": "Ash's Team",
-        "description": "This is Ash Ketchum's original team when he was in the Kanto region.",
-        "pokemon": [25, 6, 7, 1, 12, 17]
-    }
-]
+# Track the ID that will be used for new teams when they are added to DATABASE
+current_id = len(DATABASE) + 1
 
 # API route that returns all teams from DATABASE
 @teams.route('/teams', methods=['GET'])

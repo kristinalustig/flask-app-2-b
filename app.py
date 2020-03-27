@@ -1,5 +1,4 @@
 # Do not change anything in this file for this exercise
-import json
 import os
 import api
 from flask import Flask, render_template
