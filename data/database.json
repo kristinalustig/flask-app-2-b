@@ -1,4 +1,5 @@
 {   "teams": [{
+    "id": 1,
     "name": "Ash's Team",
     "description": "This is Ash Ketchum's original team when he was in the Kanto region.",
     "pokemon": [25, 6, 7, 1, 12, 17]
