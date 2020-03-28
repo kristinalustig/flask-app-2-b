@@ -4,10 +4,19 @@ $(document).ready(function() {
         method: "GET",
         url: "/api" + window.location.pathname,
         success: function(data) {
+            
+            // Add team name
             $(".team-name").html(data.name);
+            
+            // Add description
             $(".team-description").text(data.description);
+
+            // Add team members
             for (var j = 0; j < data.members.length; j++) {
                 var member = data.members[j];
+
+                // Insert markup to the container BEFORE the API call with the right member ID
+                // This part is tricky because of the team member's level - you can't get it from /api/pokemon/:id
                 $(".team-pokemon").append(`
                     <tr class="team-member-${member.pokemon_id}">
                         <td><img class="pokemon-image" /></td>
@@ -20,6 +29,8 @@ $(document).ready(function() {
                     method: "GET",
                     url: "/api/pokemon/" + member.pokemon_id,
                     success: function(pokemon) {
+                        // Add pokemon information based on ID
+                        // Note: the pokemon's level is not set here! It's done before the API call
                         $member = $(".team-member-" + pokemon.id);
                         $member.find("img").attr("src", pokemon.image_url);
                         $member.find("a").text(pokemon.name);
