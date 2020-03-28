@@ -8,6 +8,8 @@ $(document).ready(function() {
             // Update back link so it goes to the team page
             $(".back").attr("href", `/teams/${data.id}`);
 
+            $("#name").val(data.name);
+            $("#description").val(data.description);
         }
     })
 })
