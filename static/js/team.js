@@ -6,20 +6,24 @@ $(document).ready(function() {
         success: function(data) {
             $(".team-name").html(data.name);
             $(".team-description").text(data.description);
-            for (var j = 0; j < data.pokemon.length; j++) {
-                var pokemon_id = data.pokemon[j];
+            for (var j = 0; j < data.members.length; j++) {
+                var member = data.members[j];
+                $(".team-pokemon").append(`
+                    <tr class="team-member-${member.pokemon_id}">
+                        <td><img class="pokemon-image" /></td>
+                        <td><a class="pokemon" href="/pokemon/${member.pokemon_id}"></a></td>
+                        <td class="level">${member.level}</td>
+                        <td class="types"></td>
+                    </tr>
+                `)
                 $.ajax({
                     method: "GET",
-                    url: "/api/pokemon/" + pokemon_id,
+                    url: "/api/pokemon/" + member.pokemon_id,
                     success: function(pokemon) {
-                        $(".team-pokemon").append(`
-                            <tr>
-                                <td><img class="pokemon-image" src="${pokemon.image_url}" /></td>
-                                <td><a class="pokemon" href="/pokemon/${pokemon.id}">${pokemon.name}</a></td>
-                                <td></td>
-                                <td>${pokemon.types}</td>
-                            </tr>
-                        `)
+                        $member = $(".team-member-" + pokemon.id);
+                        $member.find("img").attr("src", pokemon.image_url);
+                        $member.find("a").text(pokemon.name);
+                        $member.find(".types").text(pokemon.types);
                     }
                 });
                 
