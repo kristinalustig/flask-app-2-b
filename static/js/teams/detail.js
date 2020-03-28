@@ -4,6 +4,21 @@ $(document).ready(function() {
         method: "GET",
         url: "/api" + window.location.pathname,
         success: function(data) {
+
+            // Update edit link so it goes to the correct page
+            $(".edit").attr("href", `/teams/${data.id}/edit`);
+
+            // Bind an API call to delete the team
+            $(".delete").click(function() {
+                $.ajax({
+                    url: `/api/teams/${data.id}`,
+                    method: "DELETE",
+                    success: function() {
+                        // Once deleted, redirect the user to the home page
+                        window.location.href = "/";
+                    }
+                })
+            })
             
             // Add team name
             $(".team-name").html(data.name);
