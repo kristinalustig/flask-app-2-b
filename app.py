@@ -15,14 +15,20 @@ def index():
 # Detail page route that serves detail.html
 # For example /1 will give you the detail page for Bulbasaur
 @app.route('/pokemon/<int:id>')
-def detail(id):
-    return render_template('detail.html')
+def detail_id(id):
+    return render_template('pokemon/detail.html')
 
-# Detail page route that serves detail.html
-# For example /1 will give you the detail page for Bulbasaur
+# Teams detail page route that serves teams/detail.html
+# For example /1 will give you the detail page for Ash's Team
 @app.route('/teams/<int:id>')
-def teams(id):
-    return render_template('team.html')
+def teams_id(id):
+    return render_template('teams/detail.html')
+
+# Teams edit page route that serves teams/edit.html
+# For example /1 will let you edit Ash's Team
+@app.route('/teams/<int:id>/edit')
+def teams_id_edit(id):
+    return render_template('teams/edit.html')
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
