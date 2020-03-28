@@ -41,6 +41,23 @@ textarea {
     min-height: 200px;
 }
 
+section {
+    margin-bottom: 25px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.level input[type=text] {
+    width: 50px;
+}
+
+.pokemon-image {
+    width: 150px;
+}
+
 input[type=submit] {
     cursor: pointer;
     font-weight: bold;
