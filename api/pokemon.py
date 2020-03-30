@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify, request
 import json
 
+# A Flask blueprint that allows you to separate different parts of the app into different files
 pokemon = Blueprint('pokemon', 'pokemon')
 
-# Take data from database.json and turn it into a Python dictionary to store in DATABASE
+# Take pokemon data from database.json and turn it into a Python dictionary to store in DATABASE
 with open('data/database.json') as f:
   raw = json.load(f)
 DATABASE = raw.get("pokemon", [])
