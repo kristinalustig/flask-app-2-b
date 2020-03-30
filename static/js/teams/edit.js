@@ -30,9 +30,25 @@ $(document).ready(function() {
                         <td class="name"><a href="/pokemon/${member.pokemon_id}"></a></td>
                         <td class="level"><input type="text" value="${member.level}" /></td>
                         <td class="types"></td>
-                        <td class="remove"><a href="#">Remove</button></td>
+                        <td class="remove">
+                            <button class="pokemon-remove" data-attr-id="${member.pokemon_id}">Remove</button>
+                        </td>
                     </tr>
                 `);
+
+                $(`.team-member-${member.pokemon_id} .pokemon-remove`).click(function(e) {
+                    e.preventDefault();
+                    var pokemon_id = parseInt($(this).attr("data-attr-id"));
+                    var newMembers = [];
+                    for (var i = 0; i < team.members.length; i++) {
+                        var teamMember = team.members[i];
+                        if (teamMember.pokemon_id !== pokemon_id) {
+                            newMembers.push(teamMember);
+                        }
+                    }
+                    team.members = newMembers;
+                    $(`.team-member-${pokemon_id}`).remove();
+                });
 
                 $.ajax({
                     method: "GET",
@@ -48,5 +64,5 @@ $(document).ready(function() {
                 });
             }
         }
-    })
+    });
 })
