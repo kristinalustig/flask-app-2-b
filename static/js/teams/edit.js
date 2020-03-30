@@ -63,6 +63,19 @@ $(document).ready(function() {
                     }
                 });
             }
+
+            $(".form").submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    method: "PUT",
+                    url: `/api/teams/${team.id}`,
+                    contentType: "application/json",
+                    data: JSON.stringify(team),
+                    success: function(data) {
+                        window.location.href="/";
+                    }
+                })
+            })
         }
     });
 })
