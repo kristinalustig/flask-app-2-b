@@ -1,11 +1,11 @@
 <!DOCTYPE html> <!-- All HTML files should start with this DOCTYPE tag-->
 <html>
     <head>
-        <title>Pokedex</title>
+        <title>Pokedex - New</title>
 
         <!-- For this page, your styles will be in /static/css/index.css -->
         <!-- Do NOT use a CSS library or framework like Bootstrap - practice writing CSS first -->
-        <link type="text/css" rel="stylesheet" href="/static/css/index.css" />
+        <link type="text/css" rel="stylesheet" href="/static/css/new.css" />
 
         <!-- jQuery is already downloaded and installed for you -->
         <!-- In order to use jQuery in your JavaScript, this file needs to be added BEFORE your custom JavaScript -->
@@ -14,10 +14,25 @@
     <body>
         <!-- Your HTML should start here -->
         
-        
+        <div class="container">
+            <a class="js-back" href="/">Back home</a>
+            <form class="new-form" id="js-new-team">
+                <label for="team-name" class="form-label">Team Name</label>
+                <input type="text" id="teamName" class="js-team-name-input team-name-input input" name="name">
+                <label for="team-description" class="form-label">Description</label>
+                <textarea id="team-description" class="js-team-description-input team-description-input input" name="description" rows="10"></textarea>
+            </form>
+            <table class="js-teams-pokemon">
+                <tr><th colspan="2">Pokemon</th><th>Level</th><th>Type</th><th>Remove</th></tr>
+            </table>
+            <button type="button" id="submit" form="js-new-team" class="js-submit">Submit</button>
+        </div>
+
+
+
 
         <!-- Your HTML should end here -->
         <!-- Custom JavaScript is typically located at the BOTTOM right before the closing </body> tag -->
-        <script type="text/javascript" src="/static/js/index.js"></script>
+        <script type="text/javascript" src="/static/js/new.js"></script>
     </body>
 </html>
