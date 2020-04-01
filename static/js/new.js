@@ -1,8 +1,8 @@
 // Your code starts here
 $(document).ready(function() {
 
-    teamPokemonList = [];
-    pokemonData;
+    var teamPokemonList = [];
+    var pokemonData = {};
             
     $.ajax({
         method: "GET",
@@ -13,6 +13,39 @@ $(document).ready(function() {
     });
     
     $(".js-submit").click(createNewTeam);
+    $("#js-pokemon-search").on("input", openAutocomplete);
+    
+    function openAutocomplete() {
+        $(this).off();
+        $autocompleteBox = `<div class="autocomplete"></div>`;
+        $(this).closest("form").append($autocompleteBox);
+        $("#js-pokemon-search").on("keyup", refreshAutocomplete);
+    }
+
+    function refreshAutocomplete() {
+        $(".autocomplete").empty();
+        var searchString = $(this).val();
+        if (searchString.length === 0) {return false;}
+        console.log(searchString);
+        var searchResults = pokemonSearch(searchString);
+        for (i = 0; i < searchResults.length; i++) {
+            console.log(searchResults[i]);
+            $autocompleteEntry = `<div class="autocomplete-entry" id="${searchResults[i]}">${searchResults[i]}</div>`;
+            $(".autocomplete").append($autocompleteEntry);
+        }
+    }
+
+    function pokemonSearch(searchString) {
+        numToMatch = searchString.length;
+        searchResults = [];
+        for (i = 0; i < pokemonData.length; i++) {
+            if (pokemonData[i]["name"].slice(0,numToMatch).toLowerCase() === searchString.toLowerCase()) {
+                searchResults.push(pokemonData[i]["name"]);
+                console.log(`testing ${pokemonData[i]["name"].slice(0,numToMatch)} and ${searchString.toLowerCase()}`);
+            }
+        }
+        return searchResults;
+    }
 
     function createNewTeam() {
         formDataAsArray = $("#js-new-team").serializeArray();

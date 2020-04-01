@@ -15,21 +15,23 @@
         <!-- Your HTML should start here -->
         
         <div class="container">
-            <a class="js-back" href="/">Back home</a>
-            <form class="new-form" id="js-new-team">
-                <label for="team-name" class="form-label">Team Name</label>
-                <input type="text" id="teamName" class="js-team-name-input team-name-input input" name="name">
+            <div class="back">
+                <a class="js-back" href="/">Back home</a>
+            </div>
+            <h1>Create a new team</h1>
+            <form class="new-form" autocomplete="off" id="js-new-team">
+                <label for="team-name" class="form-label">Team name</label>
+                <input type="text" id="team-name" class="js-team-name-input single-line-input input" name="name">
                 <label for="team-description" class="form-label">Description</label>
                 <textarea id="team-description" class="js-team-description-input team-description-input input" name="description" rows="10"></textarea>
+                <label for="js-pokemon-search" class="form-label">Select your Pokemon (at least 2):</label>
+                <input type="search" id="js-pokemon-search" class="input single-line-input" placeholder="ex. Bulbasaur, Oddish...">
             </form>
-            <table class="js-teams-pokemon">
+            <table class="js-teams-pokemon teams-pokemon">
                 <tr><th colspan="2">Pokemon</th><th>Level</th><th>Type</th><th>Remove</th></tr>
             </table>
             <button type="button" id="submit" form="js-new-team" class="js-submit">Submit</button>
         </div>
-
-
-
 
         <!-- Your HTML should end here -->
         <!-- Custom JavaScript is typically located at the BOTTOM right before the closing </body> tag -->
