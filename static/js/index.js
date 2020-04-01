@@ -16,9 +16,7 @@ $(document).ready(function() {
             }
         }
     });
-
-    // Maybe you should also get the team information to display too...
-
+    
     $.ajax({
         method: "GET",
         url: "/api/teams",
@@ -30,6 +28,10 @@ $(document).ready(function() {
                 $team.addClass("team")
                 $(".js-teams-container").append($team);
             }
+            $(".js-teams-container").append(`<button id="new" href="/new">+ Add New</button>`);
+            $("#new").click(function() {
+                window.location.pathname = "/new";
+            })
         }
     })
 })

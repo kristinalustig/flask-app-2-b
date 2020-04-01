@@ -18,6 +18,11 @@ def index():
 def detail_id(id):
     return render_template('pokemon/detail.html')
 
+# New page route that serves new.html
+@app.route('/new')
+def new():
+    return render_template('new.html')
+
 # Teams detail page route that serves teams/detail.html
 # For example /1 will give you the detail page for Ash's Team
 @app.route('/teams/<int:id>')
