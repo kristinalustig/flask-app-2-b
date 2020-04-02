@@ -2,15 +2,6 @@
 $(document).ready(function() {
 
     var teamPokemonList = [];
-    var pokemonData = {};
-            
-    $.ajax({
-        method: "GET",
-        url: "/api/pokemon",
-        success: function(data) {
-            pokemonData = data;
-        }
-    });
     
     $(".js-submit").click(createNewTeam);
     $("#js-pokemon-search").on("input", openAutocomplete);
@@ -25,26 +16,25 @@ $(document).ready(function() {
     function refreshAutocomplete() {
         $(".autocomplete").empty();
         var searchString = $(this).val();
-        if (searchString.length === 0) {return false;}
-        console.log(searchString);
-        var searchResults = pokemonSearch(searchString);
-        for (i = 0; i < searchResults.length; i++) {
-            console.log(searchResults[i]);
-            $autocompleteEntry = `<div class="autocomplete-entry" id="${searchResults[i]}">${searchResults[i]}</div>`;
-            $(".autocomplete").append($autocompleteEntry);
-        }
+        if (searchString.length < 2) {return false;}
+        pokemonSearch(searchString);
     }
 
     function pokemonSearch(searchString) {
-        numToMatch = searchString.length;
-        searchResults = [];
-        for (i = 0; i < pokemonData.length; i++) {
-            if (pokemonData[i]["name"].slice(0,numToMatch).toLowerCase() === searchString.toLowerCase()) {
-                searchResults.push(pokemonData[i]["name"]);
-                console.log(`testing ${pokemonData[i]["name"].slice(0,numToMatch)} and ${searchString.toLowerCase()}`);
-            }
-        }
-        return searchResults;
+        $.ajax({
+            method: "GET",
+            url: `/api/pokemon/search?search=${searchString}`,
+            success: function(data) {
+                console.log(data);
+                var data_keys = Object.keys(data);
+                console.log(data_keys);
+                data_keys.forEach(function(i) {
+                    $autocompleteEntry = `<div class="autocomplete-entry" id="${data[i]['name']}">${data[i]['name']}</div>`;
+                    $(".autocomplete").append($autocompleteEntry);
+                });
+
+                }
+        });
     }
 
     function createNewTeam() {
