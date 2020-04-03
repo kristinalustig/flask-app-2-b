@@ -47,6 +47,7 @@ def api_teams_id_get(id):
 # API route that creates a new team using the request body JSON and inserts it at the end of DATABASE
 @teams.route('/teams', methods=['POST'])
 def api_teams_id_post():
+    
     # Declare current_id as a global so it can be used correctly in this function
     global current_id
 
@@ -54,7 +55,7 @@ def api_teams_id_post():
     json = request.get_json()
 
     # Validating the request body before inserting it into DATABASE
-    keys = ["name", "description", "pokemon"]
+    keys = ["name", "description", "members"]
     for key in keys:
         # Make sure all the required keys in the keys list is in the response json
         if key not in json:
@@ -62,7 +63,7 @@ def api_teams_id_post():
                 "error": ("You are missing the '" + key  + "' in your request body")
             }), 400
         # Make sure the values at the types and evolutions keys are lists
-        if key in ["pokemon"] and not isinstance(json[key],list):
+        if key in ["members"] and not isinstance(json[key],list):
             return jsonify({
                 "error": ("Your value at '" + key  + "' must be a list, not a '" + type(json[key]).__name__ + "'")
             }), 400
@@ -72,7 +73,7 @@ def api_teams_id_post():
         "id": current_id,
         "name": json["name"],
         "description": json["description"],
-        "pokemon": []
+        "members": json["members"]
     }
     # Add the new teams entry to the end of the global DATABASE list
     DATABASE.append(teams)

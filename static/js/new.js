@@ -2,14 +2,13 @@
 $(document).ready(function() {
 
     var team = {
-        "id": "",
         "name": "",
         "description": "",
-        "members": []};
-    
+        "members": []
+    };
     $(".js-submit").click(createNewTeam);
     $("#js-pokemon-search").on("input", openAutocomplete);
-    
+
     function openAutocomplete() {
         $(this).off();
         $autocompleteBox = `<div class="autocomplete"></div>`;
@@ -52,13 +51,13 @@ $(document).ready(function() {
                 `<tr id="row${data.id}">
                     <td><img class="poke-image" src=${data.image_url}></td>
                     <td><a href="/pokemon/${data.id}">${data.name}</a></td>
-                    <td><input type="number" name="level" value="1" placeholder="1" class="level-input" id="js-change-${data.id}" form="js-new-team"></td>
+                    <td><input type="number" name="level" value="1" placeholder="1" class="level-input" id="js-change-${data.id}"></td>
                     <td>${data.types}</td>
                     <td><button type="button" form="js-new-team"  id="js-remove-${data.id}" value="${data.id}">Remove</button></td>
                 </tr>`;
                 var newMember = {
-                    'name':data.name,
-                    'pokemon_id':data.id
+                    'pokemon_id':data.id,
+                    'level':1
                     };
                 team["members"].push(newMember);
                 $(".js-teams-pokemon").append($pokemonRow);
@@ -73,17 +72,14 @@ $(document).ready(function() {
     }
 
     function createNewTeam() {
-        formDataAsArray = $("#js-new-team").serializeArray();
-        console.log(formDataAsArray);
-        dataToSend = {};
-        $.map(formDataAsArray, function(n) {
-            dataToSend[`${n.name}`] = `${n.value}`;
-        });
+        team['name'] = $(".js-team-name-input").val();
+        team['description'] = $(".js-team-description-input").val();
+        console.log(team);
         $.ajax({
             method: "POST",
-            url: '/teams',
+            url: '/api/teams',
             contentType:"application/json; charset=utf-8",
-            data: JSON.stringify(dataToSend),
+            data: JSON.stringify(team),
             success: function(data) {
                 window.location.pathname = "/";
             }
