@@ -2,10 +2,11 @@
 <html>
     <head>
         <title>Team</title>
-
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <!-- For this page, your styles will be in /static/css/index.css -->
         <!-- Do NOT use a CSS library or framework like Bootstrap - practice writing CSS first -->
-        <link type="text/css" rel="stylesheet" href="/static/css/teams/edit.css" />
+        <link type="text/css" rel="stylesheet" href="/static/css/global.css" />
+        <!-- <link type="text/css" rel="stylesheet" href="/static/css/teams/edit.css" /> -->
 
         <!-- jQuery is already downloaded and installed for you -->
         <!-- In order to use jQuery in your JavaScript, this file needs to be added BEFORE your custom JavaScript -->
@@ -13,13 +14,22 @@
     </head>
     <body>
         <!-- Your HTML should be here -->
+        <div class="header-row">
+            <div class="header">
+                <img src="{{ url_for('static', filename='favicon.ico') }}">
+                <div>
+                    <h1>Pokedex</h1>
+                    <h2>Edit team</h2>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <a class="js-back" href="">Back to team page</a>
 
-            <form class="edit-form" id="js-team-edits">
+            <form class="poke-form" id="js-team-edits">
                 <input type="hidden" class="js-hidden-team-id" name="id" value="">
                 <label for="team-name" class="form-label">Team Name</label>
-                <input type="text" id="teamName" class="js-team-name-input team-name-input input" name="name">
+                <input type="text" id="teamName" class="js-team-name-input single-line-input input" name="name">
                 <label for="team-description" class="form-label">Description</label>
                 <textarea id="team-description" class="js-team-description-input team-description-input input" name="description" rows="10"></textarea>
             </form>

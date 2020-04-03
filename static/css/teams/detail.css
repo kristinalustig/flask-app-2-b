@@ -1,35 +1,8 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Your styles begin here */
-
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-}
-
-.header {
+.header-detail {
     display: flex;
     flex-direction: column;
 }
 
-.header > * {
+.header-detail > * {
     margin-top: 10px;
-}
-
-.teams-pokemon{
-    margin-top: 20px;
-}
-
-th, td {
-    border: 1px solid lightgray;
-    padding: 20px;
-}
-
-.poke-image {
-    max-width: 100%;
 }

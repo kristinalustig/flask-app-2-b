@@ -2,9 +2,10 @@
 <html>
     <head>
         <title>Team</title>
-
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
         <!-- For this page, your styles will be in /static/css/index.css -->
         <!-- Do NOT use a CSS library or framework like Bootstrap - practice writing CSS first -->
+        <link type="text/css" rel="stylesheet" href="/static/css/global.css" />
         <link type="text/css" rel="stylesheet" href="/static/css/teams/detail.css" />
 
         <!-- jQuery is already downloaded and installed for you -->
@@ -13,14 +14,22 @@
     </head>
     <body>
         <!-- Your HTML should be here -->
-
+        <div class="header-row">
+            <div class="header">
+                <img src="{{ url_for('static', filename='favicon.ico') }}">
+                <div>
+                    <h1>Pokedex</h1>
+                    <h2>Details</h2>
+                </div>
+            </div>
+        </div>
         <div class="container">
             <div>
                 <a href="/" class="js-home">Back to home page</a> |
                 <a href="" class="js-edit">Edit</a> |
                 <a href="" class="js-delete">Delete</a>
             </div>
-            <div class="js-header header">
+            <div class="js-header header-detail">
             </div>
             <table class="js-teams-pokemon teams-pokemon">
                 <tr><th colspan="2">Pokemon</th><th>Level</th><th>Type</th></tr>

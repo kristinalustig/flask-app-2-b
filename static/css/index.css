@@ -1,29 +1,9 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Your styles begin here */
-
-.container {
-    max-width: 800px;
-    margin: 50px auto;
-}
-
-
-h1 {
-    margin-bottom: 25px;
-}
-
 button {
     height: 2rem;
     padding: 5px;
     margin-right: 50px;
     margin-top: 20px;
     font-size: inherit;
-    cursor:pointer;
 }
 
 .flex-container {
@@ -31,11 +11,17 @@ button {
 }
 
 .team {
+    padding: 8px;
     display: block;
     font-size: 1rem;
-    margin-top: 20px;
+    margin-top: 10px;
     color: black;
     font-weight: 600;
+}
+
+.team:hover, .pokemon:hover {
+    background: lightslategray;
+    color: white;
 }
 
 .pokemon-container {
@@ -50,9 +36,6 @@ button {
     color: black;
     text-decoration: none;
     padding: 15px 0;
-}
-.pokemon:hover {
-    background: #ccc;
 }
 
 .pokemon-image {

@@ -1,84 +1,3 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-}
-
-.back {
-    margin-bottom: 20px;
-}
-
-.new-form {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.form-label {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.single-line-input {
-    width: 400px;
-    height: 2rem;
-}
-
-.input {
-    margin-bottom: 20px;
-    font-size: inherit;
-    padding: 5px;
-    border: 1px solid lightgray;
-}
-
-.team-description-input {
-    width: 400px;
-}
-
-th, td {
-    border: 1px solid lightgray;
-    padding: 10px;
-    text-align: center;
-}
-
-.teams-pokemon {
-    display: none;
-    margin-top: 20px;
-}
-
-
-.poke-image {
-    max-width: 50%;
-}
-
-.level-input {
-    height: 2rem;
-    width: 40px;
-    padding: 2px;
-    font-size: inherit;
-}
-
-button {
-    padding: 2px;
-}
-
-#submit {
-    background-color:white;
-    border-radius: 0;
-    border: 1px solid lightgray;
-    padding: 10px;
-    font-weight: bold;
-    font-size: inherit;
-    margin-top: 20px;
-    cursor: pointer;
-}
-
 .autocomplete {
     display: none;
     margin-top: -20px;
@@ -95,8 +14,9 @@ button {
     cursor: pointer;
 }
 
-.autocomplete-entry:hover {
-    background-color: lightgray;
+.autocomplete-entry:hover, .autocomplete-entry:focus {
+    background-color: lightslategray;
+    color: white;
 }
 
 .autocomplete div:first-of-type {
@@ -111,6 +31,10 @@ button {
     font-style: italic;
     font-size: .8rem;
     margin-right: 10px;
+}
+
+.teams-pokemon {
+    display: none;
 }
 
 .error {

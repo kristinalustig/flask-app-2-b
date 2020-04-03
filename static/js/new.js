@@ -8,10 +8,10 @@ $(document).ready(function() {
     $("#js-pokemon-search").on("keyup", keyupHandler);
 
     function refreshAutocomplete() {
-        $(".autocomplete").show();
         $(".autocomplete").empty();
         var searchString = $(".js-pokemon-search").val();
         if (searchString.length < 2) {return false;}
+        $(".autocomplete").show();
         pokemonSearch(searchString);
     }
 
@@ -47,17 +47,16 @@ $(document).ready(function() {
                 refreshAutocomplete();
             }
         } else {
-            //$("#js-pokemon-search").focusout(); //if the focus is one of the autocomplete entries
+        //if the focus is one of the autocomplete entries
             if (key === 13) {
-                console.log($(this));
                 $(this).trigger('click');
             } else if (key === 40) {
                 $(this).next(".autocomplete-entry").focus();
             } else if (key === 38) {
                 if ($(this) === $topOfList) {
-                    $(this).prev(".autocomplete-entry").focus();
-                } else {
                     $("#js-pokemon-search").focus();
+                } else {
+                    $(this).prev(".autocomplete-entry").focus();
                 }
             }
         }
@@ -88,6 +87,7 @@ $(document).ready(function() {
                 $(`#js-remove-${data.id}`).click(removePokemonRow);
                 $(".autocomplete").hide();
                 $("#js-pokemon-search").val('');
+                $("#js-pokemon-search").focus();
             }
         })
     }
