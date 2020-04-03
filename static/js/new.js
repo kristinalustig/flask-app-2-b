@@ -17,11 +17,20 @@ $(document).ready(function() {
     }
 
     function refreshAutocomplete() {
-        $(".autocomplete").show();
-        $(".autocomplete").empty();
-        var searchString = $(this).val();
-        if (searchString.length < 2) {return false;}
-        pokemonSearch(searchString);
+        var key = event.which;
+        if (key === 13){
+            $(".autocomplete :first-child").trigger('click');
+        }
+        else if (key === 40){
+            $(".autocomplete :first-child").trigger('focus');
+        }
+        else { 
+            $(".autocomplete").show();
+            $(".autocomplete").empty();
+            var searchString = $(this).val();
+            if (searchString.length < 2) {return false;}
+            pokemonSearch(searchString);
+        }
     }
 
     function pokemonSearch(searchString) {
@@ -31,13 +40,32 @@ $(document).ready(function() {
             success: function(data) {
                 var data_keys = Object.keys(data);
                 data_keys.forEach(function(i) {
-                    $autocompleteEntry = `<div class="autocomplete-entry" id="${data[i]['id']}">
+                    $autocompleteEntry = `<div class="autocomplete-entry" id="${data[i]['id']}" tabindex="0">
                             <span class="id-tag">#${data[i]['id']}</span>${data[i]['name']}</div>`;
                     $(".autocomplete").append($autocompleteEntry);
                     $(`#${data[i]['id']}`).click(addToTeam);
+                    $(`#${data[i]['id']}`).on("keyup", keypressHandler);
                 });
             }
         });
+    }
+
+    function keypressHandler() {
+        var key = event.which;
+        if (key === 13) {
+            $(this).trigger("click");
+        }
+        if (key === 40 && ($(this).next(".autocomplete-entry").length != 0)) {
+            $(this).next(".autocomplete-entry").trigger("focus");
+        }
+        if (key === 38) {
+            if ($(this).prev(".autocomplete-entry").length != 0) {
+                $(this).prev(".autocomplete-entry").trigger("focus");
+            }
+            else {
+                $("#js-pokemon-search").trigger("focus");
+            }
+        }
     }
 
     function addToTeam() {
