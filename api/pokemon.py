@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, session
 import json
 
 # A Flask blueprint that allows you to separate different parts of the app into different files
@@ -21,11 +21,19 @@ def api_pokemon_get():
 @pokemon.route('/pokemon/search', methods=['GET'])
 def api_pokemon_search():
     search_string = request.args.get('search')
-    search_results = {}
-    for pokemon in DATABASE:
-        if search_string.lower() in pokemon["name"].lower():
-            search_results[(pokemon["id"]-1)] = pokemon
-    print(search_results)
+    if (len(search_string)>2):
+        search_results = session['search_results']
+        new_results = {}
+        for result in search_results:
+            if search_string.lower() in search_results[result]['name'].lower():
+                new_results[search_results[result]['id']] = search_results[result]
+        search_results = new_results
+    else:
+        search_results = {}
+        for pokemon in DATABASE:
+            if search_string.lower() in pokemon['name'].lower():
+                search_results[(pokemon['id']-1)] = pokemon
+    session['search_results'] = search_results
     return jsonify(search_results)
 
 

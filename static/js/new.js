@@ -32,8 +32,7 @@ $(document).ready(function() {
                     $autocompleteEntry = `<div class="autocomplete-entry" id="${data[i]['name']}">${data[i]['name']}</div>`;
                     $(".autocomplete").append($autocompleteEntry);
                 });
-
-                }
+            }
         });
     }
 
