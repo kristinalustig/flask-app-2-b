@@ -18,6 +18,7 @@ def api_pokemon_get():
 
     return jsonify(DATABASE), 200
 
+# API route that takes a request with a single search parameter and returns matching pokemon from DATABASE initially, and for subsequent requests returns them from the session's search results
 @pokemon.route('/pokemon/search', methods=['GET'])
 def api_pokemon_search():
     search_string = request.args.get('search')

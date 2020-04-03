@@ -14,6 +14,7 @@ $(document).ready(function() {
     }
 
     function refreshAutocomplete() {
+        $(".autocomplete").show();
         $(".autocomplete").empty();
         var searchString = $(this).val();
         if (searchString.length < 2) {return false;}
@@ -25,15 +26,42 @@ $(document).ready(function() {
             method: "GET",
             url: `/api/pokemon/search?search=${searchString}`,
             success: function(data) {
-                console.log(data);
                 var data_keys = Object.keys(data);
                 console.log(data_keys);
                 data_keys.forEach(function(i) {
-                    $autocompleteEntry = `<div class="autocomplete-entry" id="${data[i]['name']}">${data[i]['name']}</div>`;
+                    $autocompleteEntry = `<div class="autocomplete-entry" id="${data[i]['id']}">
+                            <span class="id-tag">#${data[i]['id']}</span>${data[i]['name']}</div>`;
                     $(".autocomplete").append($autocompleteEntry);
+                    $(`#${data[i]['id']}`).click(addToTeam);
                 });
             }
         });
+    }
+
+    function addToTeam() {
+        $(".js-teams-pokemon").show();
+        var rowId = $(this).attr("id");
+        $.ajax({
+            method: "GET",
+            url: `/api/pokemon/${rowId}`,
+            success: function(data) {
+                $pokemonRow = 
+                `<tr id="row${data.id}">
+                    <td><img class="poke-image" src=${data.image_url}></td>
+                    <td><a href="/pokemon/${data.id}">${data.name}</a></td>
+                    <td><input type="number" name="level" value="1" placeholder="1" class="level-input" id="js-change-${data.id}" form="js-new-team"></td>
+                    <td>${data.types}</td>
+                    <td><button type="button" form="js-new-team"  class="js-remove" value="${data.id}">Remove</button></td>
+                </tr>`;
+                $(".js-teams-pokemon").append($pokemonRow);
+                $(".js-remove").click(removePokemonRow);
+                $(".autocomplete").empty();
+                $(".autocomplete").hide();
+                $("#js-pokemon-search").val('');
+                $("#js-pokemon-search").off();
+                $("#js-pokemon-search").on("keyup", refreshAutocomplete);
+            }
+        })
     }
 
     function createNewTeam() {

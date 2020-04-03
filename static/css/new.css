@@ -44,14 +44,17 @@
 th, td {
     border: 1px solid lightgray;
     padding: 10px;
+    text-align: center;
 }
 
 .teams-pokemon {
     display: none;
+    margin-top: 20px;
 }
 
+
 .poke-image {
-    max-width: 100%;
+    max-width: 50%;
 }
 
 .level-input {
@@ -80,4 +83,30 @@ button {
     border: 1px solid lightgray;
     width: 400px;
     padding: 10px;
+}
+
+.autocomplete-entry {
+    font-size: 1.25rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 4px 0;
+    cursor: pointer;
+}
+
+.autocomplete-entry:hover {
+    background-color: lightgray;
+}
+
+.autocomplete div:first-of-type {
+    margin-top: 2px;
+}
+
+.autocomplete div:last-of-type {
+    margin-bottom: 2px;
+}
+
+.id-tag {
+    font-style: italic;
+    font-size: .8rem;
+    margin-right: 10px;
 }
