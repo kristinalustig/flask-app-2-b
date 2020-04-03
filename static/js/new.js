@@ -1,7 +1,11 @@
 // Your code starts here
 $(document).ready(function() {
 
-    var teamPokemonList = [];
+    var team = {
+        "id": "",
+        "name": "",
+        "description": "",
+        "members": []};
     
     $(".js-submit").click(createNewTeam);
     $("#js-pokemon-search").on("input", openAutocomplete);
@@ -27,7 +31,6 @@ $(document).ready(function() {
             url: `/api/pokemon/search?search=${searchString}`,
             success: function(data) {
                 var data_keys = Object.keys(data);
-                console.log(data_keys);
                 data_keys.forEach(function(i) {
                     $autocompleteEntry = `<div class="autocomplete-entry" id="${data[i]['id']}">
                             <span class="id-tag">#${data[i]['id']}</span>${data[i]['name']}</div>`;
@@ -51,10 +54,15 @@ $(document).ready(function() {
                     <td><a href="/pokemon/${data.id}">${data.name}</a></td>
                     <td><input type="number" name="level" value="1" placeholder="1" class="level-input" id="js-change-${data.id}" form="js-new-team"></td>
                     <td>${data.types}</td>
-                    <td><button type="button" form="js-new-team"  class="js-remove" value="${data.id}">Remove</button></td>
+                    <td><button type="button" form="js-new-team"  id="js-remove-${data.id}" value="${data.id}">Remove</button></td>
                 </tr>`;
+                var newMember = {
+                    'name':data.name,
+                    'pokemon_id':data.id
+                    };
+                team["members"].push(newMember);
                 $(".js-teams-pokemon").append($pokemonRow);
-                $(".js-remove").click(removePokemonRow);
+                $(`#js-remove-${data.id}`).click(removePokemonRow);
                 $(".autocomplete").empty();
                 $(".autocomplete").hide();
                 $("#js-pokemon-search").val('');
@@ -66,6 +74,7 @@ $(document).ready(function() {
 
     function createNewTeam() {
         formDataAsArray = $("#js-new-team").serializeArray();
+        console.log(formDataAsArray);
         dataToSend = {};
         $.map(formDataAsArray, function(n) {
             dataToSend[`${n.name}`] = `${n.value}`;
@@ -93,15 +102,17 @@ $(document).ready(function() {
             }
         }
     }
+
     function removePokemonRow() {
         pokemon = $(this).attr("value");
         $(this).closest("tr").hide();
-        for (i = 0; i < teamPokemonList.length; i++) {
-            if (teamPokemonList[i]["pokemon_id"] == pokemon){
-                teamPokemonList.splice(i, 1);
-                anyPokemonChanges = true;
+        for (i = 0; i < team["members"].length; i++) {
+            if (team["members"][i]["pokemon_id"] == pokemon) {
+                team["members"].splice(i,1);
+                console.log(team["members"]); 
+                return true;
             }
-        }
+        }  
     }
 });
 
