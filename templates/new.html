@@ -21,10 +21,13 @@
             <h1>Create a new team</h1>
             <form class="new-form" autocomplete="off" id="js-new-team">
                 <label for="team-name" class="form-label">Team name</label>
+                <p class="js-name-error error">You must enter a team name.</p>
                 <input type="text" id="team-name" class="js-team-name-input single-line-input input" name="name">
                 <label for="team-description" class="form-label">Description</label>
+                <p class="js-description-error error">You must enter a team description.</p>
                 <textarea id="team-description" class="js-team-description-input team-description-input input" name="description" rows="10"></textarea>
                 <label for="js-pokemon-search" class="form-label">Select your Pokemon:</label>
+                <p class="js-pokemon-error error">You must choose at least two pokemon.</p>
                 <input type="search" id="js-pokemon-search" class="js-pokemon-search input single-line-input" placeholder="ex. Bulbasaur, Oddish...">
                 <div class="autocomplete"></div>
             </form>

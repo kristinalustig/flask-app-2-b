@@ -95,16 +95,44 @@ $(document).ready(function() {
     function createNewTeam() {
         team['name'] = $(".js-team-name-input").val();
         team['description'] = $(".js-team-description-input").val();
-        console.log(team);
-        $.ajax({
-            method: "POST",
-            url: '/api/teams',
-            contentType:"application/json; charset=utf-8",
-            data: JSON.stringify(team),
-            success: function(data) {
-                window.location.pathname = "/";
-            }
-        });
+        var isInvalid = validateTeam();
+        if (isInvalid) {
+            return false;
+        } else {
+            $.ajax({
+                method: "POST",
+                url: '/api/teams',
+                contentType:"application/json; charset=utf-8",
+                data: JSON.stringify(team),
+                success: function(data) {
+                    window.location.pathname = "/";
+                }
+            });
+        }
+        
+    }
+
+    function validateTeam() {
+        var isInvalid = false;
+        if (team['name'].length === 0) {
+            $(".js-name-error").show();
+            isInvalid = true;
+        } else {
+            $(".js-name-error").hide();
+        }
+        if (team['description'].length === 0) {
+            $(".js-description-error").show();
+            isInvalid = true;
+        } else {
+            $(".js-description-error").hide();
+        }
+        if (team["members"].length < 2) {
+            $(".js-pokemon-error").show();
+            isInvalid = true;
+        } else {
+            $(".js-pokemon-error").hide();
+        }
+        return isInvalid;
     }
 
     function removePokemonRow() {
