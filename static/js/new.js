@@ -2,35 +2,17 @@
 $(document).ready(function() {
 
     var team = {
-        "name": "",
-        "description": "",
         "members": []
     };
     $(".js-submit").click(createNewTeam);
-    $("#js-pokemon-search").on("input", openAutocomplete);
-
-    function openAutocomplete() {
-        $(this).off();
-        $autocompleteBox = `<div class="autocomplete"></div>`;
-        $(this).closest("form").append($autocompleteBox);
-        $("#js-pokemon-search").on("keyup", refreshAutocomplete);
-    }
+    $("#js-pokemon-search").on("keyup", keyupHandler);
 
     function refreshAutocomplete() {
-        var key = event.which;
-        if (key === 13){
-            $(".autocomplete :first-child").trigger('click');
-        }
-        else if (key === 40){
-            $(".autocomplete :first-child").trigger('focus');
-        }
-        else { 
-            $(".autocomplete").show();
-            $(".autocomplete").empty();
-            var searchString = $(this).val();
-            if (searchString.length < 2) {return false;}
-            pokemonSearch(searchString);
-        }
+        $(".autocomplete").show();
+        $(".autocomplete").empty();
+        var searchString = $(".js-pokemon-search").val();
+        if (searchString.length < 2) {return false;}
+        pokemonSearch(searchString);
     }
 
     function pokemonSearch(searchString) {
@@ -43,29 +25,43 @@ $(document).ready(function() {
                     $autocompleteEntry = `<div class="autocomplete-entry" id="${data[i]['id']}" tabindex="0">
                             <span class="id-tag">#${data[i]['id']}</span>${data[i]['name']}</div>`;
                     $(".autocomplete").append($autocompleteEntry);
-                    $(`#${data[i]['id']}`).click(addToTeam);
-                    $(`#${data[i]['id']}`).on("keyup", keypressHandler);
+                    $(`#${data[i]['id']}`).on("click", addToTeam);
+                    $(`#${data[i]['id']}`).on("keyup", keyupHandler);
                 });
             }
         });
     }
 
-    function keypressHandler() {
+    function keyupHandler() {
         var key = event.which;
-        if (key === 13) {
-            $(this).trigger("click");
-        }
-        if (key === 40 && ($(this).next(".autocomplete-entry").length != 0)) {
-            $(this).next(".autocomplete-entry").trigger("focus");
-        }
-        if (key === 38) {
-            if ($(this).prev(".autocomplete-entry").length != 0) {
-                $(this).prev(".autocomplete-entry").trigger("focus");
+        var $topOfList = $(".autocomplete :first-child");
+        //if the focus is the search bar
+        if ($(this).attr("id") === "js-pokemon-search") {
+            if (key === 13) { //enter
+                $topOfList.trigger('click');
+            }
+            else if (key === 40) { //arrow down
+                $topOfList.focus();
             }
             else {
-                $("#js-pokemon-search").trigger("focus");
+                refreshAutocomplete();
+            }
+        } else {
+            //$("#js-pokemon-search").focusout(); //if the focus is one of the autocomplete entries
+            if (key === 13) {
+                console.log($(this));
+                $(this).trigger('click');
+            } else if (key === 40) {
+                $(this).next(".autocomplete-entry").focus();
+            } else if (key === 38) {
+                if ($(this) === $topOfList) {
+                    $(this).prev(".autocomplete-entry").focus();
+                } else {
+                    $("#js-pokemon-search").focus();
+                }
             }
         }
+       
     }
 
     function addToTeam() {
@@ -90,11 +86,8 @@ $(document).ready(function() {
                 team["members"].push(newMember);
                 $(".js-teams-pokemon").append($pokemonRow);
                 $(`#js-remove-${data.id}`).click(removePokemonRow);
-                $(".autocomplete").empty();
                 $(".autocomplete").hide();
                 $("#js-pokemon-search").val('');
-                $("#js-pokemon-search").off();
-                $("#js-pokemon-search").on("keyup", refreshAutocomplete);
             }
         })
     }
@@ -112,19 +105,6 @@ $(document).ready(function() {
                 window.location.pathname = "/";
             }
         });
-    }
-    
-    function changeLevelIfUpdated(n) {
-        idForLevelUpdate = `${n.name}`.slice(5);
-        for (i = 0; i < teamPokemonList.length; i++) {
-            if (idForLevelUpdate == teamPokemonList[i]["pokemon_id"]) {
-                if (teamPokemonList[i]["level"] != `${n.value}`) {
-                    teamPokemonList[i]["level"] = `${n.value}`;
-                    anyPokemonChanges = true;
-                    return true;
-                }
-            }
-        }
     }
 
     function removePokemonRow() {
